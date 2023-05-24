@@ -20,7 +20,7 @@
 
     <EditText
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:text="@string/edit_message"
         android:id="@+id/my_edit_text"
         android:hint="@string/hint_text"/>
@@ -35,5 +35,37 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         android:id="@+id/mybutton"/>
+
+    <RadioButton
+        android:id="@+id/radioButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/coffee"/>
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/coffee"/>
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:text="@string/coffee" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/logo_algonquin"
+        android:id="@+id/image"
+        android:contentDescription="@string/logo_label"/>
+
+    <ImageButton
+        android:src="@drawable/logo_algonquin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/myimagebutton"
+        android:contentDescription="@string/logo_label"/>
 
 </LinearLayout>

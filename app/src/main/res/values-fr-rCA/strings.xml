@@ -5,4 +5,6 @@
     <string name="button_message">Je suis un button</string>
     <string name="edit_message">Je suis un EditText</string>
     <string name="hint_text">Ecrire ici</string>
+    <string name="logo_label">The logo for Algonquin College</string>
+    <string name="coffee">Do you Drink Coffee?</string>
 </resources>
