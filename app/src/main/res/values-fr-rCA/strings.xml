@@ -3,4 +3,6 @@
     <string name="app_name">Morgan\'s Android Labs</string>
     <string name="hello_message">Bonjour l\'univers!</string>
     <string name="button_message">Je suis un button</string>
+    <string name="edit_message">Je suis un EditText</string>
+    <string name="hint_text">Ecrire ici</string>
 </resources>
