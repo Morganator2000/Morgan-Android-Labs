@@ -3,7 +3,7 @@ public class MainActivity extends AppCompatActivity {
     private MainViewModel model;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         model = new ViewModelProvider(this).get(MainViewModel.class);
 
