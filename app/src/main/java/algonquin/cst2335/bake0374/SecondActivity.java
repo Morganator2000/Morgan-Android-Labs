@@ -12,6 +12,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.widget.Button;
@@ -28,8 +29,15 @@ public class SecondActivity extends AppCompatActivity {
         TextView textView2 = findViewById(R.id.textView2);
         textView2.setText("Welcome back " + emailAddress);
         ImageView profileImage = findViewById(R.id.profileImage);
-
+        TextView phoneNumber = findViewById(R.id.editTextPhone);
+        Button callNumber = findViewById(R.id.callNumber);
         Button changePicture = findViewById(R.id.button2);
+
+        callNumber.setOnClickListener( clk-> {
+            Intent call = new Intent(Intent.ACTION_DIAL);
+            call.setData(Uri.parse("tel:" + phoneNumber));
+        });
+
         changePicture.setOnClickListener( clk-> {
             Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
