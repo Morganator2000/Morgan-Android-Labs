@@ -29,35 +29,31 @@ public class SecondActivity extends AppCompatActivity {
         TextView textView2 = findViewById(R.id.textView2);
         textView2.setText("Welcome back " + emailAddress);
         ImageView profileImage = findViewById(R.id.profileImage);
+        Button changePicture = findViewById(R.id.button2);
         TextView phoneNumber = findViewById(R.id.editTextPhone);
         Button callNumber = findViewById(R.id.callNumber);
-        Button changePicture = findViewById(R.id.button2);
 
         callNumber.setOnClickListener( clk-> {
             Intent call = new Intent(Intent.ACTION_DIAL);
             call.setData(Uri.parse("tel:" + phoneNumber));
+            startActivity(call);
         });
+
+        ActivityResultLauncher<Intent> cameraResult = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if (result.getResultCode() == Activity.RESULT_OK) {
+                            Intent data = result.getData();
+                            Bitmap thumbnail = data.getParcelableExtra("data");
+                            profileImage.setImageBitmap(thumbnail);
+                        }
+                    }
+                });
 
         changePicture.setOnClickListener( clk-> {
             Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-            if(checkSelfPermission(android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED)
-                startActivity(cameraIntent);
-            else
-                requestPermissions(new String[] {Manifest.permission.CAMERA}, 20);
-
-            ActivityResultLauncher<Intent> cameraResult = registerForActivityResult(
-                    new ActivityResultContracts.StartActivityForResult(),
-                    new ActivityResultCallback<ActivityResult>() {
-                        @Override
-                        public void onActivityResult(ActivityResult result) {
-                            if (result.getResultCode() == Activity.RESULT_OK) {
-                                Intent data = result.getData();
-                                Bitmap thumbnail = data.getParcelableExtra("data");
-                                profileImage.setImageBitmap(thumbnail);
-                            }
-                        }
-                    });
             cameraResult.launch(cameraIntent);
         });
 
