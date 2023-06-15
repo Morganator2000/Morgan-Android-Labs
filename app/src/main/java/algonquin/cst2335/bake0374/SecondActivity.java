@@ -31,7 +31,7 @@ import java.io.IOException;
 public class SecondActivity extends AppCompatActivity {
     private static final String image = "picture.png";
     private String imagePath;
-    ImageView profileImage = findViewById(R.id.profileImage);
+    ImageView profileImage ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +41,7 @@ public class SecondActivity extends AppCompatActivity {
         TextView textView2 = findViewById(R.id.textView2);
         textView2.setText("Welcome back " + emailAddress);
         Button changePicture = findViewById(R.id.button2);
+        profileImage = findViewById(R.id.profileImage);
         TextView phoneNumber = findViewById(R.id.editTextPhone);
         Button callNumber = findViewById(R.id.callNumber);
         SharedPreferences prefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
@@ -53,7 +54,7 @@ public class SecondActivity extends AppCompatActivity {
             editor.putString("Phone", Number);
             editor.apply();
             Intent call = new Intent(Intent.ACTION_DIAL);
-            call.setData(Uri.parse("tel:" + phoneNumber));
+            call.setData(Uri.parse("tel:" + Number));
             startActivity(call);
         });
 
@@ -82,6 +83,11 @@ public class SecondActivity extends AppCompatActivity {
             cameraResult.launch(cameraIntent);
         });
 
+        File imageFile = new File(getFilesDir(), image);
+        if (!imageFile.exists() || imagePath == null) {
+            profileImage.setImageResource(R.drawable.default_profile_image);
+        }
+
     }
 
     private void saveImage(Bitmap bitmap) throws IOException {
@@ -99,9 +105,5 @@ public class SecondActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        File imageFile = new File(getFilesDir(), image);
-        if (!imageFile.exists() || imagePath == null) {
-            profileImage.setImageResource(R.drawable.default_profile_image);
-        }
     }
 }
