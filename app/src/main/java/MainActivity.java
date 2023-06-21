@@ -1,25 +1,18 @@
-package algonquin.cst2335.bake0374;
-
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.Activity;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import algonquin.cst2335.bake0374.R;
+
 /**
- * The MainLauncher for the app.
- * @author bake0374
- * @version 1.0
+ *
  */
 public class MainActivity extends AppCompatActivity {
-    /** This is the text that will display*/
-    TextView tv = null;
-    /** This is the bar where the password will be entered*/
-    EditText et = null;
-    /** this is the button for checking the password*/
-    Button btn = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
         btn.setOnClickListener( clk ->{
             String password = et.getText().toString();
-            if (checkPasswordComplexity(password)){
-                tv.setText("Your password meets the requirements");
-            } else {
-                tv.setText("You shall not pass!");
-            }
+            checkPasswordComplexity(password);
         });
     }
 
