@@ -27,7 +27,6 @@
         android:id="@+id/imageView2"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        app:layout_constraintEnd_toStartOf="@+id/theMessage"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/theMessage"
         app:srcCompat="@drawable/receive_image" />

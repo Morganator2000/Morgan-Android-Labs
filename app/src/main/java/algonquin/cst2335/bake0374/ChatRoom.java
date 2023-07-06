@@ -18,6 +18,8 @@ import java.util.Date;
 import algonquin.cst2335.bake0374.data.ChatMessage;
 import algonquin.cst2335.bake0374.data.ChatRoomViewModel;
 import algonquin.cst2335.bake0374.databinding.ActivityChatRoomBinding;
+import algonquin.cst2335.bake0374.databinding.ReceiveMessageBinding;
+import algonquin.cst2335.bake0374.databinding.SentMessageBinding;
 
 public class ChatRoom extends AppCompatActivity {
 
@@ -71,11 +73,11 @@ public class ChatRoom extends AppCompatActivity {
             public RowHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 //viewType will be either 0 or 1, determined by getItemViewType(int position)
                 if (viewType == 0) {
-                    SentRowBinding rowBinding = SentRowBinding.inflate(getLayoutInflater(), parent, false);
+                    SentMessageBinding rowBinding = SentMessageBinding.inflate(getLayoutInflater(), parent, false);
 
                     return new RowHolder(rowBinding.getRoot());
                 } else {
-                    ReceiveRowBinding rowBinding = ReceiveRowBinding.inflate(getLayoutInflater(), parent, false);
+                    ReceiveMessageBinding rowBinding = ReceiveMessageBinding.inflate(getLayoutInflater(), parent, false);
                     return new RowHolder(rowBinding.getRoot());
                 }
             }
