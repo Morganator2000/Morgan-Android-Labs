@@ -48,7 +48,11 @@ public class ChatRoom extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         //Initialize to the ViewModel arraylist
-        messages = chatModel.messages;
+        messages = chatModel.messages.getValue();
+
+        chatModel.selectedMessage.observe(this, (newMessageValue) -> {
+
+        });
 
         binding.submit.setOnClickListener(click -> {
             String typed = binding.message.getText().toString();
@@ -140,8 +144,12 @@ public class ChatRoom extends AppCompatActivity {
         public RowHolder(@NonNull View itemView) {
             super(itemView);
 
-            itemView.setOnClickListener(click -> {
+            itemView.setOnClickListener( click -> {
                 int position = getAbsoluteAdapterPosition();
+                ChatMessage selected = messages.get(position);
+
+                chatModel.selectedMessage.postValue(selected);
+                /*int position = getAbsoluteAdapterPosition();
 
 
                 AlertDialog.Builder builder = new AlertDialog.Builder( ChatRoom.this );
@@ -175,7 +183,7 @@ public class ChatRoom extends AppCompatActivity {
                                     })
                             .show();
                 })
-                .create().show();
+                .create().show();*/
 
             });
             message = itemView.findViewById(R.id.theMessage);
