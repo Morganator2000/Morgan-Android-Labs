@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/message2"
+        android:id="@+id/messageText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -16,13 +16,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/time2"
+        android:id="@+id/timeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Time Goes Here"
-        app:layout_constraintStart_toStartOf="@+id/message2"
-        app:layout_constraintTop_toBottomOf="@+id/message2" />
+        app:layout_constraintStart_toStartOf="@+id/messageText"
+        app:layout_constraintTop_toBottomOf="@+id/messageText" />
 
     <TextView
         android:id="@+id/sendReceive"
@@ -30,11 +30,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Send Receive goes here"
-        app:layout_constraintStart_toStartOf="@+id/time2"
-        app:layout_constraintTop_toBottomOf="@+id/time2" />
+        app:layout_constraintStart_toStartOf="@+id/timeText"
+        app:layout_constraintTop_toBottomOf="@+id/timeText" />
 
     <TextView
-        android:id="@+id/databaseView"
+        android:id="@+id/databaseText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"

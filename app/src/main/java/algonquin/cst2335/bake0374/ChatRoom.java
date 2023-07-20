@@ -3,6 +3,8 @@ package algonquin.cst2335.bake0374;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,6 +27,7 @@ import algonquin.cst2335.bake0374.data.ChatMessage;
 import algonquin.cst2335.bake0374.data.ChatMessageDAO;
 import algonquin.cst2335.bake0374.data.ChatRoomViewModel;
 import algonquin.cst2335.bake0374.data.MessageDatabase;
+import algonquin.cst2335.bake0374.data.MessageDetailsFragment;
 import algonquin.cst2335.bake0374.databinding.ActivityChatRoomBinding;
 import algonquin.cst2335.bake0374.databinding.ReceiveMessageBinding;
 import algonquin.cst2335.bake0374.databinding.SentMessageBinding;
@@ -50,8 +53,14 @@ public class ChatRoom extends AppCompatActivity {
         //Initialize to the ViewModel arraylist
         messages = chatModel.messages.getValue();
 
-        chatModel.selectedMessage.observe(this, (newMessageValue) -> {
-
+        chatModel.selectedMessage.observe(this, (newValue) -> {
+            MessageDetailsFragment chatFragment = new MessageDetailsFragment(newValue);
+            chatFragment.displayMessage(newValue);
+            getFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragmentLocation, chatFragment)
+                    .addToBackStack("")
+                    .commit();
         });
 
         binding.submit.setOnClickListener(click -> {
