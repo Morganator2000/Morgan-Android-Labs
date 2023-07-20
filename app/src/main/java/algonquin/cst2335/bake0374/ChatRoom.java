@@ -155,12 +155,45 @@ public class ChatRoom extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        switch( item.getItemId() )
-        {
+        switch( item.getItemId() ) {
             case R.id.item_1:
 
-                //put your ChatMessage deletion code here. If you select this item, you should show the alert dialog
-                //asking if the user wants to delete this message.
+                int position = getAbsoluteAdapterPosition();
+                ChatMessage selected = messages.get(position);
+
+
+                AlertDialog.Builder builder = new AlertDialog.Builder( ChatRoom.this );
+                builder.setTitle("Question: ")
+                        .setMessage("Do you want to delete the message: " + message.getText())
+                        .setNegativeButton("No", (dialog, cl)->{ })
+                        .setPositiveButton("Yes", (dialog, cl)->{
+
+                            ChatMessage removedMessage = messages.get(position);
+                            messages.remove(position);
+                            myAdapter.notifyItemRemoved(position);
+
+
+                            Executor thread = Executors.newSingleThreadExecutor();
+                            thread.execute(() -> {
+                                mDAO.deleteMessage(removedMessage);
+                            });
+
+
+                            Snackbar.make(message, "You deleted message #" + position, Snackbar.LENGTH_LONG)
+                                    .setAction("Undo", clk ->{
+                                        messages.add(position, removedMessage);
+                                        myAdapter.notifyItemInserted(position);
+
+
+                                        Executor thread2 = Executors.newSingleThreadExecutor();
+                                        thread2.execute(() -> {
+                                            mDAO.insertMessage(removedMessage);
+                                        });
+
+                                    })
+                                    .show();
+                        })
+                        .create().show();
                 break;
         }
 
