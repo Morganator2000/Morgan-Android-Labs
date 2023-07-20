@@ -38,11 +38,11 @@ public class ChatRoom extends AppCompatActivity {
     ChatMessageDAO mDAO;
     ActivityChatRoomBinding binding;
     RecyclerView.Adapter myAdapter;
-
+    ChatRoomViewModel chatModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ChatRoomViewModel chatModel = new ViewModelProvider(this).get(ChatRoomViewModel.class);
+         chatModel = new ViewModelProvider(this).get(ChatRoomViewModel.class);
 
         MessageDatabase db = Room.databaseBuilder(getApplicationContext(), MessageDatabase.class, "database-name").build();
          mDAO = db.cmDAO();
@@ -50,13 +50,12 @@ public class ChatRoom extends AppCompatActivity {
         binding = ActivityChatRoomBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        //Initialize to the ViewModel arraylist
-        messages = chatModel.messages.getValue();
+        messages = chatModel.messages;
 
-        chatModel.selectedMessage.observe(this, (newValue) -> {
-            MessageDetailsFragment chatFragment = new MessageDetailsFragment(newValue);
-            chatFragment.displayMessage(newValue);
-            getFragmentManager()
+        chatModel.selectedMessage.observe(this, (newMessageValue) -> {
+            MessageDetailsFragment chatFragment = new MessageDetailsFragment(newMessageValue);
+
+            getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.fragmentLocation, chatFragment)
                     .addToBackStack("")
