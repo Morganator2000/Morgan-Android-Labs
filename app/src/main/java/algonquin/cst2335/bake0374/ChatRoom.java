@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -51,6 +52,8 @@ public class ChatRoom extends AppCompatActivity {
 
         binding = ActivityChatRoomBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        Toolbar myMenu = findViewById(R.id.my_menu);
+        setSupportActionBar(myMenu);
 
         messages = chatModel.messages;
 
@@ -155,45 +158,46 @@ public class ChatRoom extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        switch( item.getItemId() ) {
-            case R.id.item_1:
+        TextView message;
 
-                int position = getAbsoluteAdapterPosition();
+        switch (item.getItemId()) {
+            case R.id.item_1:
+                int position = item.getOrder(); // Use item.getOrder() to get the position of the clicked item
+
                 ChatMessage selected = messages.get(position);
 
-
-                AlertDialog.Builder builder = new AlertDialog.Builder( ChatRoom.this );
+                AlertDialog.Builder builder = new AlertDialog.Builder(ChatRoom.this);
                 builder.setTitle("Question: ")
-                        .setMessage("Do you want to delete the message: " + message.getText())
-                        .setNegativeButton("No", (dialog, cl)->{ })
-                        .setPositiveButton("Yes", (dialog, cl)->{
+                        .setMessage("Do you want to delete the message: " + selected.getMessage())
+                        .setNegativeButton("No", (dialog, cl) -> {
+                        })
+                        .setPositiveButton("Yes", (dialog, cl) -> {
 
                             ChatMessage removedMessage = messages.get(position);
                             messages.remove(position);
                             myAdapter.notifyItemRemoved(position);
-
 
                             Executor thread = Executors.newSingleThreadExecutor();
                             thread.execute(() -> {
                                 mDAO.deleteMessage(removedMessage);
                             });
 
-
-                            Snackbar.make(message, "You deleted message #" + position, Snackbar.LENGTH_LONG)
-                                    .setAction("Undo", clk ->{
+                            Snackbar.make( binding.receive, "You deleted message #" + position, Snackbar.LENGTH_LONG)
+                                    .setAction("Undo", clk -> {
                                         messages.add(position, removedMessage);
                                         myAdapter.notifyItemInserted(position);
-
 
                                         Executor thread2 = Executors.newSingleThreadExecutor();
                                         thread2.execute(() -> {
                                             mDAO.insertMessage(removedMessage);
                                         });
-
                                     })
                                     .show();
                         })
                         .create().show();
+                break;
+
+            default:
                 break;
         }
 
