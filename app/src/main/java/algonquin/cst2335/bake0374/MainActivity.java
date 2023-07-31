@@ -58,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
             }
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, stringURL, null,
                     (response) -> {
-                        JSONObject main = null;
                 try {
                     JSONArray weatherArray = response.getJSONArray("weather");
                     JSONObject position0 = weatherArray.getJSONObject(0);
